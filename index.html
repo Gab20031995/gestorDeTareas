@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Tareas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <img src="https://via.placeholder.com/24x24?text=K" alt="KabanFlow Logo">
+            <span>Gestor Taks</span>
+        </div>
+        <div class="navbar-actions">
+            <button class="button-primary" id="add-task-btn">
+                <span class="plus-icon">+</span> Add Task
+            </button>
+        </div>
+    </div>
+
+    <div class="kanban-board">
+        <div class="column" id="todo-column">
+            <div class="column-header">To Do <span class="task-count">0</span></div>
+            <div class="task-list">
+                </div>
+        </div>
+
+        <div class="column" id="inprogress-column">
+            <div class="column-header">In Progress <span class="task-count">0</span></div>
+            <div class="task-list">
+                </div>
+        </div>
+
+        <div class="column" id="done-column">
+            <div class="column-header">Done <span class="task-count">0</span></div>
+            <div class="task-list">
+                </div>
+        </div>
+    </div>
+
+    <div id="add-task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Task</h2>
+                <span class="close-button">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Fill in the details for your new task.</p>
+                <form id="task-form">
+                    <label for="task-name">Task Name</label>
+                    <input type="text" id="task-name" placeholder="e.g., Design new landing page" required>
+
+                    <label for="task-description">Description</label>
+                    <textarea id="task-description" placeholder="Add more details about the task..."></textarea>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="task-priority">Priority</label>
+                            <select id="task-priority">
+                                <option value="Low">Low</option>
+                                <option value="Medium" selected>Medium</option>
+                                <option value="High">High</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="task-deadline">Deadline</label>
+                            <input type="date" id="task-deadline">
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="button-secondary" id="cancel-task-btn">Cancel</button>
+                        <button type="submit" class="button-primary">Save Task</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
