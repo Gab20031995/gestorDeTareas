@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeButton = addTaskModal.querySelector('.close-button');
     const cancelTaskBtn = document.getElementById('cancel-task-btn');
     const taskForm = document.getElementById('task-form');
+    const mensaje = document.getElementById('mensaje');
 
     const todoTaskList = document.querySelector('#todo-column .task-list');
     const inProgressTaskList = document.querySelector('#inprogress-column .task-list');
@@ -13,24 +14,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const inProgressCount = document.querySelector('#inprogress-column .task-count');
     const doneCount = document.querySelector('#done-column .task-count');
 
-    let tasks = []; // Aquí se almacenarán las tareas, en un entorno real usarías un backend o localStorage
+    let tasks = [];
 
-    // Función para actualizar los contadores de tareas
+    async function cargartarea() {
+        try {
+            const respuesta = await fetch("http://localhost:8000/tasks");
+            const datos = await respuesta.json();
+            tasks = datos.map(t => ({
+                id: t.id,
+                name: t.taskname,
+                description: t.taskdescription,
+                priority: t.taskpriority,
+                deadline: t.taskdeadline,
+                status: t.status
+            }));
+            renderTasks();
+        } catch (error) {
+            console.error("Error al cargar tareas:", error);
+        }
+    }
+
     function updateTaskCounts() {
         todoCount.textContent = todoTaskList.children.length;
         inProgressCount.textContent = inProgressTaskList.children.length;
         doneCount.textContent = doneTaskList.children.length;
     }
 
-    // Función para crear una tarjeta de tarea
     function createTaskCard(task) {
         const taskCard = document.createElement('div');
         taskCard.classList.add('task-card');
-        taskCard.dataset.id = task.id; // Asigna un ID único a cada tarea
-        taskCard.dataset.status = task.status; // Para saber el estado de la tarea
-        taskCard.draggable = true; // Hacer la tarjeta arrastrable
+        taskCard.dataset.id = task.id;
+        taskCard.dataset.status = task.status;
+        taskCard.draggable = true;
 
-        // Si la tarea está en "Done", preparamos un estilo para tachar el título.
         const titleStyle = task.status === 'Done' ? 'style="text-decoration: line-through; color: #6c757d;"' : '';
 
         taskCard.innerHTML = `
@@ -41,28 +57,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="task-deadline">${task.deadline || 'No Deadline'}</span>
             </div>
             <div class="task-actions" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 5px;">
-                ${task.status !== 'In Progress' ? '<button class="move-to-inprogress-btn button-secondary" style="font-size: 12px; padding: 5px 10px;">Move to In Progress</button>' : ''}
-                ${task.status !== 'Done' ? '<button class="move-to-done-btn button-primary" style="font-size: 12px; padding: 5px 10px;">Move to Done</button>' : ''}
-                ${task.status !== 'To Do' ? '<button class="move-to-todo-btn button-secondary" style="font-size: 12px; padding: 5px 10px;">Move to To Do</button>' : ''}
-                <button class="delete-task-btn" style="font-size: 12px; padding: 5px 10px; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer; margin-left: auto;">Delete</button>
+                ${task.status !== 'In Progress' ? '<button class="move-to-inprogress-btn button-secondary">Move to In Progress</button>' : ''}
+                ${task.status !== 'Done' ? '<button class="move-to-done-btn button-primary">Move to Done</button>' : ''}
+                ${task.status !== 'To Do' ? '<button class="move-to-todo-btn button-secondary">Move to To Do</button>' : ''}
+                <button class="delete-task-btn" style="background-color: #dc3545; color: white;">Delete</button>
             </div>
         `;
 
-        // Eventos para arrastrar y soltar (Drag and Drop)
         taskCard.addEventListener('dragstart', e => {
-            // Guardamos el ID de la tarea que se está arrastrando
             e.dataTransfer.setData('text/plain', task.id);
-            // Añadimos una clase para dar feedback visual
-            setTimeout(() => {
-                taskCard.classList.add('dragging');
-            }, 0);
+            setTimeout(() => taskCard.classList.add('dragging'), 0);
         });
 
         taskCard.addEventListener('dragend', () => {
             taskCard.classList.remove('dragging');
         });
 
-        // Añadir listeners para los botones de movimiento
         taskCard.querySelector('.move-to-inprogress-btn')?.addEventListener('click', () => moveTask(task.id, 'In Progress'));
         taskCard.querySelector('.move-to-done-btn')?.addEventListener('click', () => moveTask(task.id, 'Done'));
         taskCard.querySelector('.move-to-todo-btn')?.addEventListener('click', () => moveTask(task.id, 'To Do'));
@@ -71,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return taskCard;
     }
 
-    // Función para renderizar todas las tareas
     function renderTasks() {
         todoTaskList.innerHTML = '';
         inProgressTaskList.innerHTML = '';
@@ -87,55 +96,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 doneTaskList.appendChild(taskCard);
             }
         });
+
         updateTaskCounts();
     }
 
-    // Función para mover una tarea entre columnas
     function moveTask(taskId, newStatus) {
         const taskIndex = tasks.findIndex(task => task.id === taskId);
         if (taskIndex !== -1) {
             tasks[taskIndex].status = newStatus;
-            renderTasks(); // Volver a renderizar todas las tareas
+            renderTasks();
         }
     }
 
-    // Función para eliminar una tarea
     function deleteTask(taskId) {
-        // Pedir confirmación antes de borrar para evitar accidentes
         if (confirm('¿Estás seguro de que quieres eliminar esta tarea?')) {
             tasks = tasks.filter(task => task.id !== taskId);
-            renderTasks(); // Volver a renderizar para que la tarea desaparezca
+            renderTasks();
         }
     }
 
-    // Abrir el modal
     addTaskBtn.addEventListener('click', () => {
-        addTaskModal.style.display = 'flex'; // Usar flex para centrar
+        addTaskModal.style.display = 'flex';
     });
 
-    // Cerrar el modal con el botón X
     closeButton.addEventListener('click', () => {
         addTaskModal.style.display = 'none';
-        taskForm.reset(); // Limpiar el formulario al cerrar
+        taskForm.reset();
     });
 
-    // Cerrar el modal con el botón Cancelar
     cancelTaskBtn.addEventListener('click', () => {
         addTaskModal.style.display = 'none';
-        taskForm.reset(); // Limpiar el formulario al cancelar
+        taskForm.reset();
     });
 
-    // Cerrar el modal al hacer clic fuera de él
     window.addEventListener('click', (event) => {
         if (event.target === addTaskModal) {
             addTaskModal.style.display = 'none';
-            taskForm.reset(); // Limpiar el formulario al hacer clic fuera
+            taskForm.reset();
         }
     });
 
-    // Manejar el envío del formulario
-    taskForm.addEventListener('submit', (event) => {
-        event.preventDefault(); // Prevenir el envío por defecto del formulario
+    taskForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
 
         const taskName = document.getElementById('task-name').value;
         const taskDescription = document.getElementById('task-description').value;
@@ -143,21 +145,39 @@ document.addEventListener('DOMContentLoaded', () => {
         const taskDeadline = document.getElementById('task-deadline').value;
 
         const newTask = {
-            id: Date.now(), // ID único basado en el timestamp
             name: taskName,
             description: taskDescription,
             priority: taskPriority,
             deadline: taskDeadline,
-            status: 'To Do' // Las nuevas tareas siempre comienzan en "To Do"
+            status: 'To Do'
         };
 
-        tasks.push(newTask);
-        renderTasks(); // Actualizar el tablero con la nueva tarea
-        addTaskModal.style.display = 'none'; // Cerrar el modal
-        taskForm.reset(); // Limpiar el formulario
+        try {
+            const respuesta = await fetch("http://localhost:8000/guardar-task", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    taskname: newTask.name,
+                    taskdescription: newTask.description,
+                    taskpriority: newTask.priority,
+                    taskdeadline: newTask.deadline,
+                    status: newTask.status
+                })
+            });
+
+            const resultado = await respuesta.json();
+            mensaje.textContent = resultado.mensaje;
+            mensaje.style.color = "green";
+
+            await cargartarea(); // Recarga las tareas desde la base de datos
+            addTaskModal.style.display = 'none';
+            taskForm.reset();
+        } catch (error) {
+            mensaje.textContent = "Error al guardar tarea.";
+            mensaje.style.color = "red";
+        }
     });
 
-    // Lógica para arrastrar y soltar en las columnas
     const columns = document.querySelectorAll('.task-list');
     const statusMap = {
         'todo-column': 'To Do',
@@ -167,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     columns.forEach(column => {
         column.addEventListener('dragover', e => {
-            e.preventDefault(); // Necesario para permitir que se suelte un elemento
+            e.preventDefault();
             column.classList.add('drag-over');
         });
 
@@ -184,6 +204,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Inicializar el tablero al cargar la página
-    renderTasks();
+    cargartarea(); // Carga inicial
 });
