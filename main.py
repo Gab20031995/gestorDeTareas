@@ -24,24 +24,19 @@ def conectar_db():
     db = None
     cursor = None
     try:
-        # Primero intenta conectar al servidor MySQL sin especificar una base de datos
-        # para poder crearla si no existe
-
+        #Valida los datos de concexión a la base de datos:
         db_server = mysql.connector.connect(
-            host="localhost",
-            port=3307, #Cambiar puerto a 3306 o 3307 dependiendo de que tenga
-            user="root", #Cambia el Usuario
-            password="123Queso." #Cambia la contrasela
+            host="localhost", 
+            port=3307, #Puerto
+            user="root", #Usuario
+            password="123Queso." #Contraseña
         )
         cursor_server = db_server.cursor()
-
-        # Crea la base de datos 'tareas' si no existe
         cursor_server.execute("CREATE DATABASE IF NOT EXISTS tareas")
         db_server.commit()
         cursor_server.close()
         db_server.close()
 
-        # Acá se conecta a la base de datos 'tareas'
         db = mysql.connector.connect(
             host="localhost",
             port=3307,
@@ -50,8 +45,6 @@ def conectar_db():
             database="tareas"
         )
         cursor = db.cursor()
-
-        # Crea la tabla 'tasks' si no existe
         create_table_sql = """
         CREATE TABLE IF NOT EXISTS tasks (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -65,13 +58,12 @@ def conectar_db():
         cursor.execute(create_table_sql)
         db.commit()
         cursor.close()
-        return db # Retorna la conexión a la base de datos 'tareas'
+        return db
     except mysql.connector.Error as err:
         print(f"Error de conexión o creación en la base de datos: {err}")
         if db and db.is_connected():
             db.close()
-        raise # Reenvia el error para que FastAPI sepa que algo salió mal
-
+        raise
 
 @app.post("/guardar-task")
 def guardar_tarea(tarea: Tarea):
@@ -97,7 +89,6 @@ def obtener_tareas():
     cursor.close()
     db.close()
     return tareas
-
 
 @app.put("/tasks/{task_id}")
 def actualizar_tarea(task_id: int, tarea: Tarea):
