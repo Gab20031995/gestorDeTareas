@@ -10,12 +10,12 @@ body {
 }
 
 .navbar {
-    background-color: #2a2a3e;
+    background-color: #515188;
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #3c3c54;
+    border-bottom: 1px solid #515188;
 }
 
 .navbar .logo {
@@ -26,8 +26,10 @@ body {
 }
 
 .navbar .logo img {
+    width: 40px;  
+    height: 40px; 
     margin-right: 10px;
-    border-radius: 4px; /* Para simular el logo */
+    border-radius: 4px; 
 }
 
 .navbar-actions {
@@ -35,22 +37,48 @@ body {
     gap: 10px;
 }
 
-.button-primary {
-    background-color: #6a5acd; /* Un púrpura/violeta */
-    color: white;
+.button {
     border: none;
     padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
-    display: flex;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    transition: background-color 0.2s ease;
+    text-decoration: none;
+    color: white;
+}
+
+.button:active {
+    transform: scale(0.98);
+}
+
+.button-primary {
+    background-color: #6a5acd; 
 }
 
 .button-primary:hover {
     background-color: #7b68ee;
+}
+
+.button-secondary {
+    background-color: #555;
+}
+
+.button-secondary:hover {
+    background-color: #666;
+}
+
+.button-danger {
+    background-color: #dc3545; 
+}
+
+.button-danger:hover {
+    background-color: #c82333;
 }
 
 .plus-icon {
@@ -63,14 +91,14 @@ body {
     flex-grow: 1;
     padding: 20px;
     gap: 20px;
-    overflow-x: auto; /* Permite desplazamiento horizontal si hay muchas columnas */
+    overflow-x: auto; 
 }
 
 .column {
     flex: 1;
-    min-width: 280px; /* Ancho mínimo para cada columna */
-    max-width: 350px; /* Ancho máximo si el flex permite */
-    background-color: #2a2a3e;
+    min-width: 280px; 
+    max-width: 350px; 
+    background-color: #515188;
     border-radius: 8px;
     padding: 15px;
     display: flex;
@@ -97,8 +125,8 @@ body {
 
 .task-list {
     flex-grow: 1;
-    min-height: 100px; /* Asegura que la lista de tareas tenga algo de altura */
-    overflow-y: auto; /* Si hay muchas tareas, permite desplazamiento vertical */
+    min-height: 100px; 
+    overflow-y: auto;
 }
 
 .task-card {
@@ -107,12 +135,30 @@ body {
     padding: 15px;
     margin-bottom: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    cursor: grab; /* Indica que se puede arrastrar (aunque el drag-drop no esté implementado aún) */
+    cursor: grab; 
     transition: transform 0.2s ease;
 }
 
 .task-card:active {
     cursor: grabbing;
+}
+
+.task-card .task-actions {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+
+.task-card .task-actions .delete-task-btn {
+    margin-left: auto; 
+}
+
+.button-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: normal;
 }
 
 .task-card h3 {
@@ -142,43 +188,43 @@ body {
 }
 
 .task-priority.Low {
-    background-color: #4CAF50; /* Verde */
+    background-color: #4CAF50; 
     color: white;
 }
 
 .task-priority.Medium {
-    background-color: #FFC107; /* Naranja */
+    background-color: #FFC107; 
     color: #333;
 }
 
 .task-priority.High {
-    background-color: #F44336; /* Rojo */
+    background-color: #F44336; 
     color: white;
 }
 
 
-/* Modal Styles */
+
 .modal {
-    display: none; /* Oculto por defecto */
-    position: fixed; /* Permanece en su lugar */
-    z-index: 1; /* Sitúa el modal encima de todo */
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
     left: 0;
     top: 0;
-    width: 100%; /* Ancho completo */
-    height: 100%; /* Altura completa */
-    overflow: auto; /* Habilita el desplazamiento si es necesario */
-    background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente */
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.6); 
+    justify-content: center; 
+    align-items: center; 
 }
 
 .modal-content {
     background-color: #2a2a3e;
-    margin: auto; /* Centrar en la pantalla */
+    margin: auto;
     padding: 25px;
     border-radius: 10px;
     width: 90%;
-    max-width: 500px; /* Ancho máximo para el modal */
+    max-width: 500px; 
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     color: #f0f0f0;
 }
@@ -228,7 +274,7 @@ body {
 .modal-body form textarea,
 .modal-body form select,
 .modal-body form input[type="date"] {
-    width: calc(100% - 20px); /* Ajustar el padding */
+    width: calc(100% - 20px); 
     padding: 12px 10px;
     margin-bottom: 15px;
     border: 1px solid #3c3c54;
@@ -265,19 +311,4 @@ body {
     padding-top: 20px;
     border-top: 1px solid #3c3c54;
     margin-top: 20px;
-}
-
-.button-secondary {
-    background-color: #555;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.2s ease;
-}
-
-.button-secondary:hover {
-    background-color: #666;
 }

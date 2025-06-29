@@ -21,13 +21,57 @@ class Tarea(BaseModel):
     status: str
 
 def conectar_db():
-    return mysql.connector.connect(
-        host="localhost",
-        port=3306,
-        user="root",
-        password="0818Jeank*",
-        database="tareas"
-    )
+    db = None
+    cursor = None
+    try:
+        # Primero intenta conectar al servidor MySQL sin especificar una base de datos
+        # para poder crearla si no existe
+
+        db_server = mysql.connector.connect(
+            host="localhost",
+            port=3307, #Cambiar puerto a 3306 o 3307 dependiendo de que tenga
+            user="root", #Cambia el Usuario
+            password="123Queso." #Cambia la contrasela
+        )
+        cursor_server = db_server.cursor()
+
+        # Crea la base de datos 'tareas' si no existe
+        cursor_server.execute("CREATE DATABASE IF NOT EXISTS tareas")
+        db_server.commit()
+        cursor_server.close()
+        db_server.close()
+
+        # Acá se conecta a la base de datos 'tareas'
+        db = mysql.connector.connect(
+            host="localhost",
+            port=3307,
+            user="root",
+            password="123Queso.",
+            database="tareas"
+        )
+        cursor = db.cursor()
+
+        # Crea la tabla 'tasks' si no existe
+        create_table_sql = """
+        CREATE TABLE IF NOT EXISTS tasks (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            taskname VARCHAR(255) NOT NULL,
+            taskdescription TEXT,
+            taskpriority VARCHAR(50),
+            taskdeadline DATE,
+            status VARCHAR(50)
+        );
+        """
+        cursor.execute(create_table_sql)
+        db.commit()
+        cursor.close()
+        return db # Retorna la conexión a la base de datos 'tareas'
+    except mysql.connector.Error as err:
+        print(f"Error de conexión o creación en la base de datos: {err}")
+        if db and db.is_connected():
+            db.close()
+        raise # Reenvia el error para que FastAPI sepa que algo salió mal
+
 
 @app.post("/guardar-task")
 def guardar_tarea(tarea: Tarea):

@@ -56,11 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="task-priority ${task.priority}">${task.priority}</span>
                 <span class="task-deadline">${task.deadline || 'No Deadline'}</span>
             </div>
-            <div class="task-actions" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 5px;">
-                ${task.status !== 'In Progress' ? '<button class="move-to-inprogress-btn button-secondary">Move to In Progress</button>' : ''}
-                ${task.status !== 'Done' ? '<button class="move-to-done-btn button-primary">Move to Done</button>' : ''}
-                ${task.status !== 'To Do' ? '<button class="move-to-todo-btn button-secondary">Move to To Do</button>' : ''}
-                <button class="delete-task-btn" style="background-color: #dc3545; color: white;">Delete</button>
+            <div class="task-actions">
+                ${task.status !== 'In Progress' ? '<button class="move-to-inprogress-btn button button-secondary button-sm">In Progress</button>' : ''}
+                ${task.status !== 'Done' ? '<button class="move-to-done-btn button button-primary button-sm">Done</button>' : ''}
+                ${task.status !== 'To Do' ? '<button class="move-to-todo-btn button button-secondary button-sm">To Do</button>' : ''}
+                <button class="delete-task-btn button button-danger button-sm">Delete</button>
             </div>
         `;
 
