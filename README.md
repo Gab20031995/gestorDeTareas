@@ -22,7 +22,7 @@ FasTaks es una aplicación web sencilla pero funcional para la gestión de tarea
 ### **Base de Datos: MySQL**
 
 * **MySQL:** Sistema de gestión de bases de datos relacionales utilizado para almacenar la información de las tareas.  
-* **Estructura de la tabla** tasks**:**  
+* **Estructura de la tabla** tasks:  
   * id: Clave primaria autoincremental.  
   * taskname: Nombre de la tarea.  
   * taskdescription: Descripción detallada.  
