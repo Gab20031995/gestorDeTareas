@@ -31,7 +31,7 @@ FasTaks es una aplicación web sencilla pero funcional para la gestión de tarea
 * **FastAPI:** Framework web moderno y de alto rendimiento para construir APIs con Python. Proporciona validación de datos automática con Pydantic y una excelente documentación interactiva (Swagger UI/ReDoc).  
 * **Pydantic:** Utilizado para definir la estructura de los datos de las tareas (Tarea BaseModel), asegurando que los datos recibidos y enviados por la API sean consistentes y válidos.  
 * **Uvicorn:** Servidor ASGI de alta velocidad utilizado para ejecutar la aplicación FastAPI.  
-* mysql.connector: Conector oficial de MySQL para Python, utilizado para interactuar con la base de datos.
+* **mysql.connector:** Conector oficial de MySQL para Python, utilizado para interactuar con la base de datos.
 
 ### **Base de Datos: MySQL**
 
