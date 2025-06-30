@@ -90,7 +90,7 @@ Para ejecutar la aplicación:
 
 6. **Activa el entorno virtual:**  
    * **Windows (PowerShell):** `& .\\venv\\Scripts\\activate`  
-   * **macOS/Linux:** source `venv/bin/activate  `
+   * **macOS/Linux:** `source venv/bin/activate  `
      
 7. **Instala las dependencias de Python:**  
    `pip install \-r requirements.txt`
