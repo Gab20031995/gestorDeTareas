@@ -31,7 +31,7 @@ FasTaks es una aplicación web sencilla pero funcional para la gestión de tarea
 * **FastAPI:** Framework web moderno y de alto rendimiento para construir APIs con Python. Proporciona validación de datos automática con Pydantic y una excelente documentación interactiva (Swagger UI/ReDoc).  
 * **Pydantic:** Utilizado para definir la estructura de los datos de las tareas (Tarea BaseModel), asegurando que los datos recibidos y enviados por la API sean consistentes y válidos.  
 * **Uvicorn:** Servidor ASGI de alta velocidad utilizado para ejecutar la aplicación FastAPI.  
-* mysql.connector**:** Conector oficial de MySQL para Python, utilizado para interactuar con la base de datos.
+* mysql.connector: Conector oficial de MySQL para Python, utilizado para interactuar con la base de datos.
 
 ### **Base de Datos: MySQL**
 
@@ -80,7 +80,7 @@ La aplicación sigue una arquitectura cliente-servidor (Frontend-Backend):
 Para ejecutar la aplicación:
 
 1. **Asegúrate de tener Python, Pip y MySQL instalados** en tu sistema.  
-2. **Configura tu servidor MySQL:** Asegúrate de que MySQL esté en ejecución en `localhost:3307` y que las credenciales user='root', password='123Queso.' sean válidas y tengan permisos para crear bases de datos y tablas, en caso de que no debes de cambiar a tu user y password.  
+2. **Configura tu servidor MySQL:** Asegúrate de que MySQL esté en ejecución en `localhost:3307` y que las credenciales `user='root'`, `password='123Queso.'` sean válidas y tengan permisos para crear bases de datos y tablas, en caso de que no debes de cambiar a tu user y password.  
 3. **Clona o descarga el proyecto.**  
 4. **Abre una terminal** en el directorio raíz del proyecto.  
 5. **Crea un entorno virtual** (si no lo has hecho):  
