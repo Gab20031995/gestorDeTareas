@@ -20,11 +20,11 @@ FasTaks es una aplicación web sencilla pero funcional para la gestión de tarea
 
 ## **2\. Tecnologías Utilizadas**
 
-### **Frontend: HTML, CSS, JavaScript**
+### **Frontend: HTML, CSS, JS**
 
-* **HTML5:** Estructura de la aplicación, incluyendo la barra de navegación, el tablero Kanban y el modal de tareas.  
-* **CSS3:** Estilizado moderno, con un tema oscuro y componentes con bordes redondeados. Incluye reglas de flexbox para el diseño responsivo de las columnas del tablero y @media queries para la adaptación a dispositivos móviles.  
-* **JavaScript (ES6+):** Lógica del lado del cliente. Maneja la interacción del usuario, la comunicación con el backend a través de fetch API, la manipulación del DOM, el arrastrar y soltar (Drag and Drop) para mover tareas y la gestión del modal de creación/edición.
+* **HTML:** Estructura de la aplicación, incluyendo la barra de navegación, el tablero Kanban y el modal de tareas.  
+* **CSS:** Estilizado moderno, con un tema oscuro y componentes con bordes redondeados. Incluye reglas de flexbox para el diseño responsivo de las columnas del tablero y @media queries para la adaptación a dispositivos móviles.  
+* **Js:** Lógica del lado del cliente. Maneja la interacción del usuario, la comunicación con el backend a través de fetch API, la manipulación del DOM, el arrastrar y soltar (Drag and Drop) para mover tareas y la gestión del modal de creación/edición.
 
 ### **Backend: FastAPI (Python)**
 
