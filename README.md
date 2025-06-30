@@ -13,9 +13,9 @@ Alumnos:
 
 # **FasTaks: Gestor de Tareas Kanban**
 
-## **DEMO:
+## **DEMO:**
 
-https://youtu.be/K-Pwu3C19no
+[![Video del proyecto](https://img.youtube.com/vi/K-Pwu3C19no/maxresdefault.jpg)](https://youtu.be/K-Pwu3C19no)
 
 
 ## **1\. Introducción**
