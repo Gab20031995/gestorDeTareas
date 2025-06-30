@@ -15,8 +15,7 @@ Alumnos:
 
 ## **DEMO:**
 
-[![Video del proyecto](https://img.youtube.com/vi/3lSTfcc611o/maxresdefault.jpg)](https://youtu.be/3lSTfcc611o)
-
+[![Demo del proyecto](https://img.youtube.com/vi/3lSTfcc611o/maxresdefault.jpg)](https://youtu.be/3lSTfcc611o)
 
 ## **1\. Introducción**
 
